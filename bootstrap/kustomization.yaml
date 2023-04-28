@@ -4,6 +4,6 @@ kind: Kustomization
 
 resources:
   - cluster-management.yaml
-  - global-project.yaml
+  - nostromo.yaml
   - redhat-gitops-operator.yaml
   - app-of-apps.yaml
