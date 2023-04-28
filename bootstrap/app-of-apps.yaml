@@ -7,12 +7,15 @@ spec:
   destination:
     namespace: openshift-gitops
     name: in-cluster
-  project: nostromo 
+  project: nostromo
   source:
-    path: app-of-apps 
+    path: app-of-apps
     repoURL: https://github.com/goern/op1st-emea-b4mad-nostromo.git
     targetRevision: main
   syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
     - Validate=false
     - ApplyOutOfSyncOnly=true

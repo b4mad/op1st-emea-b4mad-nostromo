@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   namespace: openshift-gitops
-  name: nostromo 
+  name: nostromo
 spec:
   sourceRepos:
     - 'https://github.com/b4mad/*'
