@@ -7,6 +7,10 @@ spec:
   sourceRepos:
     - 'https://github.com/b4mad/*'
     - 'https://github.com/goern/*'
+  destinations:
+  - name: in-cluster
+    namespace: '*'
+    server: https://kubernetes.default.svc
   namespaceResourceWhitelist:
     - group: ''
       kind: Binding

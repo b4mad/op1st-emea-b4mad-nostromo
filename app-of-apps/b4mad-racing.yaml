@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: b4mad-racing 
+spec:
+  destination:
+    namespace: b4mad-racing 
+    name: phobos 
+  project: global-project 
+  source:
+    path: manifests 
+    repoURL: https://github.com/b4mad/racing.git
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+    - Validate=false
+    - ApplyOutOfSyncOnly=true
