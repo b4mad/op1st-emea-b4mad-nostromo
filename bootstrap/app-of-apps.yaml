@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: openshift-gitops
+  name: app-of-apps
+spec:
+  destination:
+    namespace: openshift-gitops
+    name: in-cluster
+  project: nostromo 
+  source:
+    path: app-of-apps 
+    repoURL: https://github.com/goern/op1st-emea-b4mad-nostromo.git
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+    - Validate=false
+    - ApplyOutOfSyncOnly=true
