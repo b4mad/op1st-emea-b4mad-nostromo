@@ -8,7 +8,6 @@ commonAnnotations:
   org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
 
 resources:
-  - ../capabilities/lvm-storage
   - local-volume-discovery.yaml
   - lvm-cluster.yaml
   - b4mad-cluster-admins.yaml

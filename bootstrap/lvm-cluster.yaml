@@ -3,7 +3,7 @@ kind: LVMCluster
 metadata:
   finalizers:
     - lvmcluster.topolvm.io
-  name: bridge-lvmcluster
+  name: bridge
   namespace: openshift-storage
 spec:
   storage:
