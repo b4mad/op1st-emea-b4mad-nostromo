@@ -8,4 +8,5 @@ commonAnnotations:
   org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
 
 resources:
-  - redhat-gitops-operator.yaml
+  - https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/operator/overlays/latest?ref=main
+  - github.com/redhat-cop/gitops-catalog/openshift-pipelines-operator/overlays/latest?ref=main
