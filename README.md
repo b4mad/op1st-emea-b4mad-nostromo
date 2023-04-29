@@ -20,6 +20,6 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 
 Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider this a temporary measure until the apps are deployed via other GitOps repos.
 
-`oc apply -f app-of-apps.yaml`
+`kustomize build --enable-alpha-plugins app-of-apps/ | oc apply -f -`
 
 ## How to add your own Cluster
