@@ -6,8 +6,20 @@ It implements [Operate First SIG/SRE Infrastructure Services](https://github.com
 
 ## Bootstrap
 
+The bootstrap directory contains the bootstrap cluster configuration for nostromo, some cluster defaults will be configured, and a set of infrastrucure services will be deployed.
+
 ```bash
 kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 ```
+
+## Infrastructure Services
+
+`kustomize build --enable-alpha-plugins infrastructure-services/ | oc apply -f -`
+
+## Apps (tmporary)
+
+Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider this a temporary measure until the apps are deployed via other GitOps repos.
+
+`oc apply -f app-of-apps.yaml`
 
 ## How to add your own Cluster

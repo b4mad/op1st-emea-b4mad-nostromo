@@ -9,7 +9,7 @@ spec:
     name: in-cluster
   project: nostromo
   source:
-    path: app-of-apps
+    path: app
     repoURL: https://github.com/goern/op1st-emea-b4mad-nostromo.git
     targetRevision: main
   syncPolicy:

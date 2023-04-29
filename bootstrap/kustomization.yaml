@@ -15,5 +15,3 @@ resources:
   - b4mad-cluster-admins.yaml
   - cluster-management.yaml
   - nostromo.yaml
-  - ../infra-apps
-  - app-of-apps.yaml
