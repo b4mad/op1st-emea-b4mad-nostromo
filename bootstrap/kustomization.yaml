@@ -10,7 +10,8 @@ commonAnnotations:
 resources:
   - local-volume-discovery.yaml
   - lvm-cluster.yaml
-  - ../capabilities/persistent-storage-for-monitoring/cluster-monitoring-config.yaml
+  - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
+  - ../capabilities/persistent-storage-for-monitoring/
   - b4mad-cluster-admins.yaml
   - cluster-management.yaml
   - nostromo.yaml
