@@ -21,3 +21,4 @@ data:
           resources:
             requests:
               storage: 10Gi
+    enableUserWorkload: true  # https://docs.openshift.com/container-platform/4.12/monitoring/enabling-monitoring-for-user-defined-projects.html#enabling-monitoring-for-user-defined-projects_enabling-monitoring-for-user-defined-projects
