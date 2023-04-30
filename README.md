@@ -16,6 +16,12 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 
 `kustomize build --enable-alpha-plugins infrastructure-services/ | oc apply -f -`
 
+### cert-manager
+
+1. create a service accounts, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
+2. create a secret `kubectl --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
+3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
+
 ## Apps (tmporary)
 
 Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider this a temporary measure until the apps are deployed via other GitOps repos.
