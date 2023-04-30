@@ -22,6 +22,46 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 2. create a secret `kubectl --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
 3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
 
+To test the deployment, create a test certificate:
+
+```yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-com
+  namespace: test
+spec:
+  uris:
+    - 'spiffe://cluster.local/ns/sandbox/sa/example'
+  secretTemplate:
+    annotations:
+      my-secret-annotation-1: foo
+      my-secret-annotation-2: bar
+    labels:
+      my-secret-label: foo
+  renewBefore: 360h0m0s
+  subject:
+    organizations:
+      - jetstack
+  usages:
+    - server auth
+    - client auth
+  duration: 2160h0m0s
+  commonName: test.b4mad.emea.operate-first.cloud
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-via-google-clouddns
+  secretName: example-com-tls
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  dnsNames:
+    - test.b4mad.emea.operate-first.cloud
+```
+
+and observe the certificate being created: https://console-...operate-first.cloud/k8s/ns/test/secrets/example-com-tls
+
 ### Integrated OpenShift image registry
 
 The [Integrated OpenShift image registry](https://docs.openshift.com/container-platform/4.12/registry/index.html#registry-integrated-openshift-registry_registry-overview) is configured with persistent storage.
