@@ -22,6 +22,16 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 2. create a secret `kubectl --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
 3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
 
+### Integrated OpenShift image registry
+
+The [Integrated OpenShift image registry](https://docs.openshift.com/container-platform/4.12/registry/index.html#registry-integrated-openshift-registry_registry-overview) is configured with persistent storage.
+
+To enable the integrated OpenShift image registry, you must have a persistent volume claim (PVC) available in the `openshift-image-registry` namespace. The PVC must be named `image-registry-storage`. The state of the image registry operator will be `Degraded` until the PVC is available.
+
+Apply the configuration by `kustomize build --enable-alpha-plugins capabilities/persistent-image-registry/ | oc apply -f -`
+
+Check by using `oc get clusteroperator image-registry` and look for `True` in the `Available` column.
+
 ## Apps (tmporary)
 
 Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider this a temporary measure until the apps are deployed via other GitOps repos.
