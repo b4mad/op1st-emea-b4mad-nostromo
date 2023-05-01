@@ -23,8 +23,8 @@ Install
 
 ### cert-manager
 
-1. create a service accounts, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
-2. create a secret `kubectl --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
+1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
+2. create a secret `oc --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
 3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
 
 To test the deployment, create a test certificate:
