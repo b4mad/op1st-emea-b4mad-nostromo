@@ -12,15 +12,6 @@ The bootstrap directory contains the bootstrap cluster configuration for nostrom
 kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 ```
 
-## Infrastructure Services
-
-Install
-
-* Red Hat OpenShift Pipelines
-* Red Hat OpenShift GitOps
-
-`kustomize build --enable-alpha-plugins infrastructure-services/ | oc apply -f -`
-
 ### cert-manager
 
 1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
@@ -84,6 +75,15 @@ To enable the integrated OpenShift image registry, you must have a persistent vo
 Apply the configuration by `kustomize build --enable-alpha-plugins capabilities/persistent-image-registry/ | oc apply -f -`
 
 Check by using `oc get clusteroperator image-registry` and look for `True` in the `Available` column.
+
+## Infrastructure Services
+
+Install
+
+* Red Hat OpenShift Pipelines
+* Red Hat OpenShift GitOps
+
+`kustomize build --enable-alpha-plugins infrastructure-services/ | oc apply -f -`
 
 ## Apps (tmporary)
 
