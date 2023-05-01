@@ -15,3 +15,17 @@ resources:
   - cluster-monitoring-config.yaml
   - cluster-management.yaml
   - nostromo.yaml
+  - default-ingress-certificate.yaml
+  - op1st-branding.yaml
+
+patchesStrategicMerge:
+# equivalent command: oc patch ingresscontroller.operator default --type=merge -p '{"spec":{"defaultCertificate": {"name": "nostromo-default-ingress-certificate"}}}' -n openshift-ingress-operator
+- |-
+  apiVersion: operator.openshift.io/v1
+  kind: IngressController
+  metadata:
+    name: default
+    namespace: openshift-ingress-operator
+  spec:
+    defaultCertificate:
+      name: nostromo-default-ingress-certificate

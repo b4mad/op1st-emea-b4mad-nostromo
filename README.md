@@ -14,6 +14,11 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 
 ## Infrastructure Services
 
+Install
+
+* Red Hat OpenShift Pipelines
+* Red Hat OpenShift GitOps
+
 `kustomize build --enable-alpha-plugins infrastructure-services/ | oc apply -f -`
 
 ### cert-manager
@@ -61,6 +66,14 @@ spec:
 ```
 
 and observe the certificate being created: https://console-...operate-first.cloud/k8s/ns/test/secrets/example-com-tls
+
+### Replacing the default ingress certificate
+
+seeAlso <https://docs.openshift.com/container-platform/4.12/security/certificates/replacing-default-ingress-certificate.html>
+
+check with `oc get certificate --namespace openshift-ingress nostromo-default-ingress-certificate -o jsonpath='{.status.conditions}'`
+
+The defaul ingress controller will be patched by the bootstrap process to use the `nostromo-default-ingress-certificate` certificate.
 
 ### Integrated OpenShift image registry
 
