@@ -8,13 +8,12 @@ commonAnnotations:
   org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
 
 resources:
+  - b4mad-cluster-admins.yaml
+  - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
+  - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main
   - local-volume-discovery.yaml
   - lvm-cluster.yaml
-  - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
-  - b4mad-cluster-admins.yaml
   - cluster-monitoring-config.yaml
-  - cluster-management.yaml
-  - nostromo.yaml
   - default-ingress-certificate.yaml
   - op1st-branding.yaml
 
