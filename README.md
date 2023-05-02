@@ -8,6 +8,8 @@ It implements [Operate First SIG/SRE Infrastructure Services](https://github.com
 
 The bootstrap directory contains the bootstrap cluster configuration for nostromo, some cluster defaults will be configured, and a set of infrastrucure services will be deployed.
 
+Please make sure you are in the default project: `oc project default`
+
 ```bash
 kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 ```
