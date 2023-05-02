@@ -3,6 +3,7 @@
 This repository will deploy Red Hat OpenShift GitOps, and an app-of-apps.
 
 It implements [Operate First SIG/SRE Infrastructure Services](https://github.com/operate-first/community/issues/251)
+and partialy [Hybride Cloud Patterns: Multicluster DevSecOps](https://hybrid-cloud-patterns.io/patterns/devsecops/)
 
 ## Bootstrap
 
@@ -109,3 +110,9 @@ Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider 
 `kustomize build --enable-alpha-plugins app-of-apps/ | oc apply -f -`
 
 ## How to add your own Cluster
+
+## Secret Operations (sops)
+
+Install `sops` from <https://github.com/mozilla/sops/releases>
+
+Have a look at `.sops.yaml`.
