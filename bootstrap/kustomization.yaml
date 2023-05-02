@@ -33,4 +33,4 @@ patchesStrategicMerge:
     namespace: openshift-ingress-operator
   spec:
     defaultCertificate:
-      name: nostromo-default-ingress-certificate
+      name: default-ingress-certificate

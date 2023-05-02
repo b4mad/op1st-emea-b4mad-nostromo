@@ -14,6 +14,9 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 
 ### cert-manager
 
+As of now, we do not delegate DNS zones per cluster, so we cannot use the default `letsencrypt-via-http01` issuer. Instead, we use the `letsencrypt-via-google-clouddns` issuer. This issuer uses the [Google Cloud DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/google/), and has the authority to create TXT records in the `b4mad-emea-operate-first-cloud` zone. Nevertheless
+the Google Cloud DNS service account created is specific to this cluster.
+
 1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
 2. create a secret `oc --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
 3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`

@@ -8,18 +8,16 @@ metadata:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: nostromo-default-ingress-certificate
+  name: default-ingress-certificate
   namespace: openshift-ingress
 spec:
   subject:
     organizations:
       - "#B4mad"
-    organizationalUnits:
-      - erdeschoss
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-via-google-clouddns
-  secretName: nostromo-default-ingress-certificate
+  secretName: default-ingress-certificate
   secretTemplate:
     annotations:
       app.kubernetes.io/part-of: op1st-emea-b4mad-nostromo
@@ -29,4 +27,3 @@ spec:
     size: 4096
   dnsNames:
     - "*.apps.nostromo.erdgeschoss.b4mad.emea.operate-first.cloud"
-    - console-openshift-console.apps.nostromo.erdgeschoss.b4mad.emea.operate-first.cloud
