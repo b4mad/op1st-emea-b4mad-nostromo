@@ -12,6 +12,18 @@ The bootstrap directory contains the bootstrap cluster configuration for nostrom
 kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 ```
 
+### sealed secrets
+
+The cluster will be configured with [sealed secrets](https://github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default/README.md).
+
+To create a backup of the private keys, run: `kubectl get secret --namespace sealed-secrets --selector sealedsecrets.bitnami.com/sealed-secrets-key --output yaml >sealed-secrets-main.key`.
+
+Install the `kubeseal` command line tool via `go install github.com/bitnami-labs/sealed-secrets/cmd/kubeseal@v0.20.5`
+or download it from <https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.20.5>
+
+General usage information for [sealed secrets](https://github.com/bitnami-labs/sealed-secrets#usage). Keep in mind that
+we deploy it to a different namespace, so you need to use `--controller-namespace sealed-secrets` for all commands.
+
 ### cert-manager
 
 As of now, we do not delegate DNS zones per cluster, so we cannot use the default `letsencrypt-via-http01` issuer. Instead, we use the `letsencrypt-via-google-clouddns` issuer. This issuer uses the [Google Cloud DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/google/), and has the authority to create TXT records in the `b4mad-emea-operate-first-cloud` zone. Nevertheless

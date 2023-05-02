@@ -12,6 +12,7 @@ resources:
   - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
   - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/nfd/operator/overlays/stable?ref=main
+  - github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default
   - local-volume-discovery.yaml
   - lvm-cluster.yaml
   - cluster-monitoring-config.yaml
