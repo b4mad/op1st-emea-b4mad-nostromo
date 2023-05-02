@@ -10,7 +10,7 @@ spec:
   source:
     path: manifests
     repoURL: https://github.com/b4mad/racing.git
-    targetRevision: main
+    targetRevision: v0.4.7
   syncPolicy:
     syncOptions:
       - Validate=false

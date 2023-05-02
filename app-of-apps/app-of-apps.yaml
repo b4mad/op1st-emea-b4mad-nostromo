@@ -11,7 +11,7 @@ spec:
   source:
     path: apps
     repoURL: https://github.com/b4mad/op1st-emea-b4mad-nostromo.git
-    targetRevision: main
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
