@@ -17,6 +17,7 @@ resources:
   - lvm-cluster.yaml
   - cluster-monitoring-config.yaml
   - default-ingress-certificate.yaml
+  - google-clouddns-nostromo-dns01-solver_sealed-secret.yaml
   - op1st-branding.yaml
 
 components:

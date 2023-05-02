@@ -15,18 +15,6 @@ Please make sure you are in the default project: `oc project default`
 kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 ```
 
-### sealed secrets
-
-The cluster will be configured with [sealed secrets](https://github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default/README.md).
-
-To create a backup of the private keys, run: `kubectl get secret --namespace sealed-secrets --selector sealedsecrets.bitnami.com/sealed-secrets-key --output yaml >sealed-secrets-main.key`.
-
-Install the `kubeseal` command line tool via `go install github.com/bitnami-labs/sealed-secrets/cmd/kubeseal@v0.20.5`
-or download it from <https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.20.5>
-
-General usage information for [sealed secrets](https://github.com/bitnami-labs/sealed-secrets#usage). Keep in mind that
-we deploy it to a different namespace, so you need to use `--controller-namespace sealed-secrets` for all commands.
-
 ### cert-manager
 
 As of now, we do not delegate DNS zones per cluster, so we cannot use the default `letsencrypt-via-http01` issuer. Instead, we use the `letsencrypt-via-google-clouddns` issuer. This issuer uses the [Google Cloud DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/google/), and has the authority to create TXT records in the `b4mad-emea-operate-first-cloud` zone. Nevertheless
@@ -35,6 +23,8 @@ the Google Cloud DNS service account created is specific to this cluster.
 1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
 2. create a secret `oc --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
 3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
+4. create the sealed secret containing the service account to access gcdns: `kubectl create secret --namespace openshift-cert-manager generic google-clouddns-nostromo-dns01-solver --dry-run=client --from-file=aicoe-prow-96c1a6bfd097.json -o json | kubeseal --controller-namespace sealed-secrets -o yaml >bootstrap/google-clouddns-nostromo-dns01-solver_sealed-secret.yaml`
+4.1. if the service account json file is gone... use sops to decrypt it from this repo's `secrets/`
 
 To test the deployment, create a test certificate:
 
@@ -111,8 +101,20 @@ Deploy the apps of apps, so that all the apps are deployed via GitOps. Consider 
 
 ## How to add your own Cluster
 
-## Secret Operations (sops)
+## Secret Operations (sops, sealed-secrets)
 
 Install `sops` from <https://github.com/mozilla/sops/releases>
 
 Have a look at `.sops.yaml`.
+
+### sealed secrets
+
+The cluster will be configured with [sealed secrets](https://github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default/README.md).
+
+To create a backup of the private keys, run: `kubectl get secret --namespace sealed-secrets --selector sealedsecrets.bitnami.com/sealed-secrets-key --output yaml >sealed-secrets-main.key`.
+
+Install the `kubeseal` command line tool via `go install github.com/bitnami-labs/sealed-secrets/cmd/kubeseal@v0.20.5`
+or download it from <https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.20.5>
+
+General usage information for [sealed secrets](https://github.com/bitnami-labs/sealed-secrets#usage). Keep in mind that
+we deploy it to a different namespace, so you need to use `--controller-namespace sealed-secrets` for all commands.
