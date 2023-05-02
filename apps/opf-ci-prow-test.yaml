@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opf-ci-prow-test
+spec:
+  destination:
+    name: in-cluster
+    namespace: opf-ci-prow
+  source:
+    path: prow/overlays/nostromo
+    repoURL: "https://github.com/goern/operate-first-apps/"
+    targetRevision: HEAD
+  project: nostromo
+  syncPolicy:
+    syncOptions: []
