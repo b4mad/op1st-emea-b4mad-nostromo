@@ -5,13 +5,13 @@ metadata:
 spec:
   destination:
     namespace: b4mad-racing
-    name: phobos
-  project: global-project
+    name: in-cluster
+  project: nostromo
   source:
     path: manifests
     repoURL: https://github.com/b4mad/racing.git
     targetRevision: main
   syncPolicy:
     syncOptions:
-    - Validate=false
-    - ApplyOutOfSyncOnly=true
+      - Validate=false
+      - ApplyOutOfSyncOnly=true

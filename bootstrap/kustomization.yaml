@@ -5,7 +5,7 @@ kind: Kustomization
 commonAnnotations:
   app.kubernetes.io/managed-by: human+kustomize/command-line
   app.kubernetes.io/part-of: op1st-emea-b4mad-nostromo
-  org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
+  org.opencontainers.image.source: https://github.com/b4mad/op1st-emea-b4mad-nostromo.git
 
 resources:
   - b4mad-cluster-admins.yaml
@@ -25,13 +25,13 @@ components:
   - github.com/operate-first/apps/cluster-scope/components/resourcequotas/large?ref=master
 
 patchesStrategicMerge:
-# equivalent command: oc patch ingresscontroller.operator default --type=merge -p '{"spec":{"defaultCertificate": {"name": "nostromo-default-ingress-certificate"}}}' -n openshift-ingress-operator
-- |-
-  apiVersion: operator.openshift.io/v1
-  kind: IngressController
-  metadata:
-    name: default
-    namespace: openshift-ingress-operator
-  spec:
-    defaultCertificate:
-      name: default-ingress-certificate
+  # equivalent command: oc patch ingresscontroller.operator default --type=merge -p '{"spec":{"defaultCertificate": {"name": "nostromo-default-ingress-certificate"}}}' -n openshift-ingress-operator
+  - |-
+    apiVersion: operator.openshift.io/v1
+    kind: IngressController
+    metadata:
+      name: default
+      namespace: openshift-ingress-operator
+    spec:
+      defaultCertificate:
+        name: default-ingress-certificate

@@ -10,12 +10,12 @@ spec:
   project: nostromo
   source:
     path: apps
-    repoURL: https://github.com/goern/op1st-emea-b4mad-nostromo.git
+    repoURL: https://github.com/b4mad/op1st-emea-b4mad-nostromo.git
     targetRevision: main
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-    - Validate=false
-    - ApplyOutOfSyncOnly=true
+      - Validate=false
+      - ApplyOutOfSyncOnly=true

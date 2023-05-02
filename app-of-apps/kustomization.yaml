@@ -4,6 +4,6 @@ kind: Kustomization
 commonAnnotations:
   app.kubernetes.io/managed-by: human+kustomize/command-line
   app.kubernetes.io/part-of: op1st-emea-b4mad-nostromo
-  org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
+  org.opencontainers.image.source: https://github.com/b4mad/op1st-emea-b4mad-nostromo.git
 resources:
   - app-of-apps.yaml
