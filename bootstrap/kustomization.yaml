@@ -11,7 +11,7 @@ resources:
   - b4mad-rbac.yaml
   - github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default
   - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
-  - acme-cluster-issuer.yaml
+  - letsencrypt-cluster-issuer.yaml
   - secrets/cloudflare-b4mad-racing-nostromo-dns01-solver.yaml
   - secrets/google-clouddns-nostromo-dns01-solver.yaml
   - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main

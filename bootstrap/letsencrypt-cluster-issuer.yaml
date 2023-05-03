@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: nostromo
+  name: letsencrypt
   namespace: openshift-cert-manager
 spec:
   acme:
@@ -28,3 +28,6 @@ spec:
         selector:
           dnsZones:
             - b4mad.racing
+      - http01:
+          ingress:
+            class: openshift-default

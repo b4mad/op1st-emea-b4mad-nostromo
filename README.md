@@ -9,10 +9,12 @@ and partialy [Hybride Cloud Patterns: Multicluster DevSecOps](https://hybrid-clo
 
 The bootstrap directory contains the bootstrap cluster configuration for nostromo, some cluster defaults will be configured, and a set of infrastrucure services will be deployed.
 
-Please make sure you are in the default project: `oc project default`
+Please make sure you are in the default project
 
 ```bash
-kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
+# doublecheck you are kube-admin, use `oc whoami` to check, `oc login` to switch
+oc project default
+kustomize build bootstrap/ | oc apply -f -
 ```
 
 ### cert-manager
