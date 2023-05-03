@@ -8,7 +8,7 @@ commonAnnotations:
   org.opencontainers.image.source: https://github.com/b4mad/op1st-emea-b4mad-nostromo.git
 
 resources:
-  - b4mad-cluster-admins.yaml
+  - b4mad-rbac.yaml
   - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
   - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/nfd/operator/overlays/stable?ref=main
