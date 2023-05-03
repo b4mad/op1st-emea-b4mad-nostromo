@@ -10,3 +10,19 @@ commonAnnotations:
 resources:
   - https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/operator/overlays/latest?ref=main
   - https://github.com/redhat-cop/gitops-catalog/openshift-pipelines-operator/overlays/latest?ref=main
+  - openshift-gitops.yaml
+
+patchesStrategicMerge:
+  - |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: ArgoCD
+    metadata:
+      name: openshift-gitops
+      namespace: openshift-gitops
+    spec:
+      rbac:
+        policy: |
+          g, system:cluster-admins, role:admin
+          g, cluster-admins, role:admin
+          g, b4mad-members, role:admin
+        scopes: '[groups]'
