@@ -9,15 +9,17 @@ commonAnnotations:
 
 resources:
   - b4mad-rbac.yaml
-  - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
-  - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main
-  - github.com/redhat-cop/gitops-catalog/nfd/operator/overlays/stable?ref=main
   - github.com/redhat-cop/gitops-catalog/sealed-secrets-operator/overlays/default
+  - github.com/redhat-cop/gitops-catalog/cert-manager-operator/operator/base?ref=main
+  - acme-cluster-issuer.yaml
+  - secrets/cloudflare-b4mad-racing-nostromo-dns01-solver.yaml
+  - secrets/google-clouddns-nostromo-dns01-solver.yaml
+  - github.com/redhat-cop/gitops-catalog/local-storage/operator/overlays/stable?ref=main
   - local-volume-discovery.yaml
   - lvm-cluster.yaml
   - cluster-monitoring-config.yaml
   - default-ingress-certificate.yaml
-  - google-clouddns-nostromo-dns01-solver_sealed-secret.yaml
+  - github.com/redhat-cop/gitops-catalog/nfd/operator/overlays/stable?ref=main
   - op1st-branding.yaml
 
 components:

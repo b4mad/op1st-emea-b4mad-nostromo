@@ -1,8 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-commonAnnotations:
-  app.kubernetes.io/managed-by: human+kustomize/command-line
-  app.kubernetes.io/part-of: op1st-emea-b4mad-nostromo
-  org.opencontainers.image.source: https://github.com/goern/op1st-emea-b4mad-nostromo.git
-resources:
-  - acme-cluster-issuer.yaml

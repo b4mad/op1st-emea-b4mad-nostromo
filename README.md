@@ -17,54 +17,9 @@ kustomize build --enable-alpha-plugins bootstrap/ | oc apply -f -
 
 ### cert-manager
 
-As of now, we do not delegate DNS zones per cluster, so we cannot use the default `letsencrypt-via-http01` issuer. Instead, we use the `letsencrypt-via-google-clouddns` issuer. This issuer uses the [Google Cloud DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/google/), and has the authority to create TXT records in the `b4mad-emea-operate-first-cloud` zone. Nevertheless
-the Google Cloud DNS service account created is specific to this cluster.
-
-1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
-2. create a secret `oc --namespace openshift-cert-manager create secret generic google-clouddns-nostromo-dns01-solver --from-file=aicoe-prow-96c1a6bfd097.json`
-3. `kustomize build --enable-alpha-plugins capabilities/google-clouddns-issuer/ | oc apply -f -`
-4. create the sealed secret containing the service account to access gcdns: `kubectl create secret --namespace openshift-cert-manager generic google-clouddns-nostromo-dns01-solver --dry-run=client --from-file=aicoe-prow-96c1a6bfd097.json -o json | kubeseal --controller-namespace sealed-secrets -o yaml >bootstrap/google-clouddns-nostromo-dns01-solver_sealed-secret.yaml`
-4.1. if the service account json file is gone... use sops to decrypt it from this repo's `secrets/`
-
-To test the deployment, create a test certificate:
-
-```yaml
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: example-com
-  namespace: test
-spec:
-  uris:
-    - 'spiffe://cluster.local/ns/sandbox/sa/example'
-  secretTemplate:
-    annotations:
-      my-secret-annotation-1: foo
-      my-secret-annotation-2: bar
-    labels:
-      my-secret-label: foo
-  renewBefore: 360h0m0s
-  subject:
-    organizations:
-      - jetstack
-  usages:
-    - server auth
-    - client auth
-  duration: 2160h0m0s
-  commonName: test.b4mad.emea.operate-first.cloud
-  issuerRef:
-    kind: ClusterIssuer
-    name: letsencrypt-via-google-clouddns
-  secretName: example-com-tls
-  privateKey:
-    algorithm: RSA
-    encoding: PKCS1
-    size: 2048
-  dnsNames:
-    - test.b4mad.emea.operate-first.cloud
-```
-
-and observe the certificate being created: https://console-...operate-first.cloud/k8s/ns/test/secrets/example-com-tls
+As of now, we do not delegate DNS zones per cluster, so we cannot use the default `letsencrypt-via-http01` issuer.
+Instead, we use the `letsencrypt-via-google-clouddns` issuer. This issuer uses the [Google Cloud DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/google/), and has the authority to create TXT records in the `b4mad-emea-operate-first-cloud` zone. Nevertheless
+the Google Cloud DNS service account created is specific to this cluster, and [CloudFlare DNS01 solver](https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/) is used to create TXT records in the `b4mad.racing` zone.
 
 ### Replacing the default ingress certificate
 
@@ -118,3 +73,9 @@ or download it from <https://github.com/bitnami-labs/sealed-secrets/releases/tag
 
 General usage information for [sealed secrets](https://github.com/bitnami-labs/sealed-secrets#usage). Keep in mind that
 we deploy it to a different namespace, so you need to use `--controller-namespace sealed-secrets` for all commands.
+
+#### Sealed Secrets used on Nostromo
+
+1. create a service account, follow <https://cert-manager.io/docs/configuration/acme/dns01/google/#set-up-a-service-account>
+2. create the sealed secret containing the service account to access gcdns: `kubectl create secret --namespace openshift-cert-manager generic google-clouddns-nostromo-dns01-solver --dry-run=client --from-file=<service_account_filename> -o json | kubeseal --controller-namespace sealed-secrets -o yaml >bootstrap/google-clouddns-nostromo-dns01-solver_sealed-secret.yaml`
+3. creae a sealed secret containing the api token for Cloudflare DNS: `kubectl create secret generic cloudflare-b4mad-racing-nostromo-dns01-solver --namespace=openshift-cert-manager --dry-run=client  --from-literal api-token=<token_string>  -o yaml | kubeseal --controller-namespace=sealed-secrets -o yaml >bootstrap/cloudflare-b4mad-racing-nostromo-dns01-solver.yaml`.
