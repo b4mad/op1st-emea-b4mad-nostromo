@@ -38,3 +38,12 @@ patchesStrategicMerge:
     spec:
       defaultCertificate:
         name: default-ingress-certificate
+
+  - |-
+    apiVersion: operators.coreos.com/v1alpha1
+    kind: Subscription
+    metadata:
+      name: openshift-cert-manager-operator
+      namespace: openshift-cert-manager-operator
+    spec:
+      channel: stable-v1
